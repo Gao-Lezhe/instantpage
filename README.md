@@ -47,7 +47,7 @@
 
 ## 🐞 Bug 反馈
 
-如果您在使用过程中遇到问题，请 [点击这里](https://[[github.com/Gao-Lezhe/instantpage/issues]] 或 [发送邮件](mailto:gaolezhe@outlook.com) 进行反馈。
+如果您在使用过程中遇到问题，请 [点击这里](https://github.com/Gao-Lezhe/instantpage/issues) 或 [发送邮件](mailto:gaolezhe@outlook.com) 进行反馈。
 
 特别鸣谢：[instantpage.js](https://instant.page/)
 
