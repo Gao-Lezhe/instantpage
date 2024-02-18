@@ -28,12 +28,6 @@
 
 - **[安装地址（推荐）](https://greasyfork.org/zh-CN/scripts/487625-%E7%BD%91%E9%A1%B5%E5%8A%A0%E9%80%9F%E5%99%A8)**
 
-## 🎨 助手效果
-
-注意观察链接的打开速度，左侧为开启加速前，右侧为开启加速后。
-
-(https://cdn.jsdelivr.net/gh/youxiaohou/img/S6sTQV7zf5kOoJx.gif)
-
 
 ## 🔧 助手配置
 
