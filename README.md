@@ -32,7 +32,7 @@
 
 注意观察链接的打开速度，左侧为开启加速前，右侧为开启加速后。
 
-![](https://cdn.jsdelivr.net/gh/youxiaohou/img/S6sTQV7zf5kOoJx.gif)
+(https://cdn.jsdelivr.net/gh/youxiaohou/img/S6sTQV7zf5kOoJx.gif)
 
 
 ## 🔧 助手配置
