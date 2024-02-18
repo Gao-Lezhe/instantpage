@@ -1,14 +1,11 @@
 // ==UserScript==
 // @name              网页加速器
-// @namespace         https://github.com/syhyz1990/instantpage
-// @version           1.4.2
-// @author            YouXiaoHou
+// @namespace         https://github.com/LezheGao/instantpage
+// @version           1.0.2
+// @author            YouXiaoHou、高乐喆（Greasy Fork用户名：lezhe）
 // @description       自动帮你加速网页中的超链接，加快打开网页的速度，实测符合条件的网页打开速度减少50%以上。
-// @updateURL         https://www.youxiaohou.com/instantpage.user.js
-// @downloadURL       https://www.youxiaohou.com/instantpage.user.js
 // @license           AGPL
-// @homepage          https://www.youxiaohou.com/tool/install-instantpage.html
-// @supportURL        https://github.com/syhyz1990/instantpage
+// @supportURL        https://github.com/LezheGao/instantpage
 // @require           https://registry.npmmirror.com/sweetalert2/10.16.6/files/dist/sweetalert2.min.js
 // @resource          swalStyle https://registry.npmmirror.com/sweetalert2/10.16.6/files/dist/sweetalert2.min.css
 // @match             *://*/*
@@ -21,19 +18,19 @@
 // @grant             GM_getResourceText
 // @icon              data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjggMTI4Ij48cGF0aCBkPSJNMCA3OWMwLTM1LjQgMjguNS02NCA2My45LTY0LjFzNjQuMSAyOC42IDY0LjEgNjRjMCA5LjQtMi4xIDE4LjQtNS43IDI2LjUtMSAyLjMtMi4zIDQuNi0zLjYgNi43LS40LjYtMSAxLTEuNyAxSDExYy0uNyAwLTEuMy0uNC0xLjctMS0xLjMtMi4yLTIuNS00LjQtMy42LTYuN0MyLjEgOTcuNCAwIDg4LjQgMCA3OXptMjQuNC0zOS43Yy01LjIgNS4xLTkuMiAxMS4xLTEyIDE3LjgtMyA2LjktNC41IDE0LjItNC41IDIxLjhhNTUuODYgNTUuODYgMCAwIDAgNC40IDIxLjhjLjcgMS42IDEuNCAzLjIgMi4yIDQuN2g5OC44Yy44LTEuNSAxLjYtMy4xIDIuMi00LjdhNTUuODYgNTUuODYgMCAwIDAgNC40LTIxLjggNTUuODYgNTUuODYgMCAwIDAtNC40LTIxLjhjLTIuOC02LjctNi45LTEyLjctMTItMTcuOC01LjEtNS4yLTExLjEtOS4yLTE3LjgtMTJhNTUuODYgNTUuODYgMCAwIDAtMjEuOC00LjQgNTUuODYgNTUuODYgMCAwIDAtMjEuOCA0LjRjLTYuNiAyLjgtMTIuNiA2LjgtMTcuNyAxMnoiIGZpbGw9IiM0NDQiLz48cGF0aCBkPSJNMTIuNCA1Ny4xYzIuOC02LjcgNi45LTEyLjcgMTItMTcuOCA1LjEtNS4yIDExLjEtOS4yIDE3LjgtMTJBNTUuODYgNTUuODYgMCAwIDEgNjQgMjIuOWE1NS44NiA1NS44NiAwIDAgMSAyMS44IDQuNGM2LjcgMi44IDEyLjcgNi45IDE3LjggMTIgNS4yIDUuMSA5LjIgMTEuMSAxMiAxNy44YTU1Ljg2IDU1Ljg2IDAgMCAxIDQuNCAyMS44IDU1Ljg2IDU1Ljg2IDAgMCAxLTQuNCAyMS44Yy0uNyAxLjYtMS40IDMuMi0yLjIgNC43SDE0LjZjLS44LTEuNS0xLjYtMy4xLTIuMi00LjdBNTUuODYgNTUuODYgMCAwIDEgOCA3OC45Yy0uMS03LjYgMS40LTE0LjkgNC40LTIxLjh6IiBmaWxsPSIjNjQ5OTUwIi8+PHBhdGggZD0iTTc3LjUgNjAuOUM2OCA4MS4yIDY0LjkgODQuNiA2NC42IDg1Yy0xLjUgMS41LTMuNSAyLjMtNS42IDIuM3MtNC4xLS44LTUuNi0yLjNhNy45MSA3LjkxIDAgMCAxIDAtMTEuMmMuMy0uNCAzLjgtMy40IDI0LjEtMTIuOXptMC04Yy0xLjEgMC0yLjMuMi0zLjQuOEM2My4yIDU4LjggNTEgNjQuOSA0Ny44IDY4LjFjLTYuMiA2LjItNi4yIDE2LjMgMCAyMi41IDMuMSAzLjEgNy4yIDQuNyAxMS4yIDQuN3M4LjEtMS42IDExLjItNC43YzMuMi0zLjIgOS4zLTE1LjQgMTQuNC0yNi4zIDIuNi01LjYtMS43LTExLjQtNy4xLTExLjR6TTYzLjkgMjkuOGMtMjcuMiAwLTQ5LjUgMjIuNi00OS4xIDQ5LjggMCAzLjYuNSA3LjIgMS4zIDEwLjYuNCAxLjggMiAzLjEgMy45IDMuMSAyLjYgMCA0LjQtMi40IDMuOS00LjktLjctMy0xLjEtNi4yLTEuMS05LjNBNDIuMDQgNDIuMDQgMCAwIDEgMjYgNjNjMi01IDUtOS40IDguOC0xMy4yUzQzIDQzLjEgNDcuOSA0MWE0Mi4wNCA0Mi4wNCAwIDAgMSAzMi4yIDBjNC45IDIuMSA5LjMgNS4xIDEzLjEgOC45Qzk3IDUzLjYgOTkuOSA1OCAxMDIgNjNhNDIuMDQgNDIuMDQgMCAwIDEgMy4yIDE2LjFjMCAzLjItLjQgNi4zLTEuMSA5LjMtLjYgMi41IDEuMyA0LjkgMy45IDQuOSAxLjggMCAzLjUtMS4zIDMuOS0zLjEuOC0zLjYgMS4zLTcuMyAxLjMtMTEuMSAwLTI3LjMtMjIuMS00OS4zLTQ5LjMtNDkuM3oiIGZpbGw9IiM0NDQiLz48L3N2Zz4=
 // ==/UserScript==
-
+ 
 (function () {
     'use strict';
-
+ 
     let util = {
         getValue(name) {
             return GM_getValue(name);
         },
-
+ 
         setValue(name, value) {
             GM_setValue(name, value);
         },
-
+ 
         include(str, arr) {
             str = str.replace(/[-_]/ig, '');
             for (let i = 0, l = arr.length; i < l; i++) {
@@ -44,7 +41,7 @@
             }
             return false;
         },
-
+ 
         addStyle(id, tag, css) {
             tag = tag || 'style';
             let doc = document, styleDom = doc.getElementById(id);
@@ -55,7 +52,7 @@
             tag === 'style' ? style.innerHTML = css : style.href = css;
             doc.head.appendChild(style);
         },
-
+ 
         reg: {
             chrome: /^https?:\/\/chrome.google.com\/webstore\/.+?\/([a-z]{32})(?=[\/#?]|$)/,
             chromeNew: /^https?:\/\/chromewebstore.google.com\/.+?\/([a-z]{32})(?=[\/#?]|$)/,
@@ -64,7 +61,7 @@
             microsoft: /^https?:\/\/(?:apps|www).microsoft.com\/(?:store|p)\/.+?\/([a-zA-Z\d]{10,})(?=[\/#?]|$)/,
         }
     };
-
+ 
     let main = {
         initValue() {
             let value = [{
@@ -95,12 +92,12 @@
                 name: 'exclude_keyword',
                 value: 'login\nlogout\nregister\nsignin\nsignup\nsignout\npay\ncreate\nedit\ndownload\ndel\nreset\nsubmit\ndoubleclick\ngoogleads\nexit'
             }];
-
+ 
             value.forEach((v) => {
                 util.getValue(v.name) === undefined && util.setValue(v.name, v.value);
             });
         },
-
+ 
         registerMenuCommand() {
             GM_registerMenuCommand('🚀 已加速：' + util.getValue('setting_success_times') + '次', () => {
                 Swal.fire({
@@ -124,7 +121,7 @@
                               <label class="instant-setting-label">加速外部链接<input type="checkbox" id="S-External" ${util.getValue('allow_external_links') ? 'checked' : ''} class="instant-setting-checkbox"></label>
                               <label class="instant-setting-label"><span>加速含参数链接 <a href="https://www.youxiaohou.com/tool/install-instantpage.html#%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">详见</a></span><input type="checkbox" id="S-Query" ${util.getValue('allow_query_links') ? 'checked' : ''} 
                               class="instant-setting-checkbox"></label>
-                              <label class="instant-setting-label">加速扩展/应用商店链接<input type="checkbox" id="S-Store" ${util.getValue('enable_store_link') ? 'checked' : ''} class="instant-setting-checkbox"></label>
+                              <label class="instant-setting-label">加速扩展商店链接<input type="checkbox" id="S-Store" ${util.getValue('enable_store_link') ? 'checked' : ''} class="instant-setting-checkbox"></label>
                               <label class="instant-setting-label">加速链接在当前页打开<input type="checkbox" id="S-Target" ${util.getValue('enable_target_self') ? 'checked' : ''} class="instant-setting-checkbox"></label>
                               <label class="instant-setting-label">加速动画效果<input type="checkbox" id="S-Animate" ${util.getValue('enable_animation') ? 'checked' : ''} 
                               class="instant-setting-checkbox"></label>
@@ -147,7 +144,7 @@
                         history.go(0);
                     }
                 });
-
+ 
                 document.getElementById('S-External').addEventListener('change', (e) => {
                     util.setValue('allow_external_links', e.currentTarget.checked);
                 });
@@ -174,14 +171,14 @@
                 });
             });
         },
-
+ 
         //在排除名单里
         inExcludeList() {
             let exclude = util.getValue('exclude_list').split('\n');
             let host = location.host;
             return exclude.includes(host);
         },
-
+ 
         //加速主代码
         instantPage() {
             if (window.instantLoaded) return;
@@ -202,15 +199,15 @@
             const enableStoreLink = util.getValue('enable_store_link');
             window.instantLoaded = true;
             const excludeKeyword = util.getValue('exclude_keyword').split('\n');
-
+ 
             let delayOnHover = util.getValue('delay_on_hover');
             let useMousedown = false;
             let useMousedownOnly = false;
             let useViewport = false;
-
+ 
             if ('instantIntensity' in document.body.dataset) {
                 const intensity = document.body.dataset.instantIntensity;
-
+ 
                 if (intensity.substr(0, 'mousedown'.length) === 'mousedown') {
                     useMousedown = true;
                     if (intensity === 'mousedown-only') {
@@ -233,28 +230,28 @@
                     }
                 }
             }
-
+ 
             if (isSupported) {
                 const eventListenersOptions = {
                     capture: true,
                     passive: true,
                 };
-
+ 
                 if (!useMousedownOnly) {
                     document.addEventListener('touchstart', touchstartListener, eventListenersOptions);
                 }
-
+ 
                 if (!useMousedown) {
                     document.addEventListener('mouseover', mouseoverListener, eventListenersOptions);
                 } else if (!mousedownShortcut) {
                     document.addEventListener('mousedown', mousedownListener, eventListenersOptions);
                 }
-
+ 
                 if (mousedownShortcut) {
                     document.addEventListener('mousedown', mousedownShortcutListener, eventListenersOptions);
                 }
-
-
+ 
+ 
                 if (useViewport) {
                     let triggeringFunction;
                     if (window.requestIdleCallback) {
@@ -268,7 +265,7 @@
                             callback();
                         };
                     }
-
+ 
                     triggeringFunction(() => {
                         const intersectionObserver = new IntersectionObserver((entries) => {
                             entries.forEach((entry) => {
@@ -279,7 +276,7 @@
                                 }
                             });
                         });
-
+ 
                         document.querySelectorAll('a').forEach((linkElement) => {
                             if (isPreloadable(linkElement)) {
                                 intersectionObserver.observe(linkElement);
@@ -288,93 +285,93 @@
                     });
                 }
             }
-
+ 
             function touchstartListener(event) {
                 /* Chrome on Android calls mouseover before touchcancel so `lastTouchTimestamp`
                  * must be assigned on touchstart to be measured on mouseover. */
                 lastTouchTimestamp = performance.now();
-
+ 
                 const linkElement = event.target.closest('a');
-
+ 
                 if (!isPreloadable(linkElement)) {
                     return;
                 }
-
+ 
                 preload(linkElement);
             }
-
+ 
             function mouseoverListener(event) {
                 if (performance.now() - lastTouchTimestamp < DELAY_TO_NOT_BE_CONSIDERED_A_TOUCH_INITIATED_ACTION) {
                     return;
                 }
-
+ 
                 if (!('closest' in event.target)) {
                     // Without this check sometimes an error “event.target.closest is not a function” is thrown, for unknown reasons
                     // That error denotes that `event.target` isn’t undefined. My best guess is that it’s the Document.
-
+ 
                     // Details could be gleaned from throwing such an error:
                     //throw new TypeError(`instant.page non-element event target: timeStamp=${~~event.timeStamp}, type=${event.type}, typeof=${typeof event.target}, nodeType=${event.target.nodeType}, nodeName=${event.target.nodeName}, viewport=${innerWidth}x${innerHeight}, coords=${event.clientX}x${event.clientY}, scroll=${scrollX}x${scrollY}`)
                     return
                 }
-
+ 
                 const linkElement = event.target.closest('a');
-
+ 
                 if (!isPreloadable(linkElement)) {
                     return;
                 }
-
+ 
                 linkElement.addEventListener('mouseout', mouseoutListener, {passive: true});
-
+ 
                 mouseoverTimer = setTimeout(() => {
                     preload(linkElement);
                     mouseoverTimer = undefined;
                 }, delayOnHover);
             }
-
+ 
             function mousedownListener(event) {
                 const linkElement = event.target.closest('a');
-
+ 
                 if (!isPreloadable(linkElement)) {
                     return;
                 }
-
+ 
                 preload(linkElement);
             }
-
+ 
             function mouseoutListener(event) {
                 if (event.relatedTarget && event.target.closest('a') === event.relatedTarget.closest('a')) {
                     return;
                 }
-
+ 
                 if (mouseoverTimer) {
                     clearTimeout(mouseoverTimer);
                     mouseoverTimer = undefined;
                 }
             }
-
+ 
             function mousedownShortcutListener(event) {
                 if (performance.now() - lastTouchTimestamp < DELAY_TO_NOT_BE_CONSIDERED_A_TOUCH_INITIATED_ACTION) {
                     return;
                 }
-
+ 
                 const linkElement = event.target.closest('a');
-
+ 
                 if (event.which > 1 || event.metaKey || event.ctrlKey) {
                     return;
                 }
-
+ 
                 if (!linkElement) {
                     return;
                 }
-
+ 
                 linkElement.addEventListener('click', function (event) {
                     if (event.detail === 1337) {
                         return;
                     }
-
+ 
                     event.preventDefault();
                 }, {capture: true, passive: false, once: true});
-
+ 
                 const customEvent = new MouseEvent('click', {
                     view: window,
                     bubbles: true,
@@ -383,12 +380,12 @@
                 });
                 linkElement.dispatchEvent(customEvent);
             }
-
+ 
             function isPreloadable(linkElement) {
                 if (!linkElement || !linkElement.href) {
                     return;
                 }
-
+ 
                 if (util.include(linkElement.href, excludeKeyword)) {
                     if (!util.reg.chrome.test(linkElement.href) &&
                         !util.reg.chromeNew.test(linkElement.href) &&
@@ -398,19 +395,19 @@
                         return;
                     }
                 }
-
+ 
                 if (useWhitelist && !('instant' in linkElement.dataset)) {
                     return;
                 }
-
+ 
                 if (!allowExternalLinks && linkElement.origin !== location.origin && !('instant' in linkElement.dataset)) {
                     return;
                 }
-
+ 
                 if (!['http:', 'https:'].includes(linkElement.protocol)) {
                     return;
                 }
-
+ 
                 if (linkElement.protocol === 'http:' && location.protocol === 'https:') {
                     if (linkElement.href.indexOf('http://www.baidu.com/link?url') === 0) {
                         linkElement.href = linkElement.href.replace('http', 'https');
@@ -425,37 +422,34 @@
                         return;
                     }
                 }
-
+ 
                 if (!allowQueryString && linkElement.search && !('instant' in linkElement.dataset)) {
                     return;
                 }
-
+ 
                 if (linkElement.hash && linkElement.pathname + linkElement.search === location.pathname + location.search) {
                     return;
                 }
-
+ 
                 if (linkElement.dataset.filename || linkElement.dataset.noInstant) {
                     return;
                 }
-
+ 
                 return true;
             }
-
+ 
             function preload(linkElement) {
                 let url = linkElement.href;
-
+ 
                 if (!isOnline()) {
                     return;
                 }
-
+ 
                 if (prefetches.has(url)) {
                     return;
                 }
-
+ 
                 if (enableStoreLink) {
-                    if (util.reg.chrome.test(url)) {
-                        linkElement.href = url.replace("chrome.google.com", "chrome.crxsoso.com");
-                    }
                     if (util.reg.chromeNew.test(url)) {
                         linkElement.href = url.replace("chromewebstore.google.com", "chrome.crxsoso.com/webstore");
                     }
@@ -465,29 +459,26 @@
                     if (util.reg.firefox.test(url)) {
                         linkElement.href = url.replace("addons.mozilla.org", "addons.crxsoso.com");
                     }
-                    if (util.reg.microsoft.test(url)) {
-                        linkElement.href = url.replace(/(www|apps)\.microsoft\.com/, "apps.crxsoso.com");
-                    }
                 }
-
+ 
                 const prefetcher = document.createElement('link');
                 prefetcher.rel = 'prefetch';
                 prefetcher.href = url;
                 document.head.appendChild(prefetcher);
-
+ 
                 prefetches.add(url);
-
+ 
                 if (enableAnimation) {
                     linkElement.classList.add("link-instanted");
                 }
                 if (enableTargetSelf) {
                     linkElement.target = '_self';
                 }
-
+ 
                 util.setValue('setting_success_times', util.getValue('setting_success_times') + 1);
             }
         },
-
+ 
         addPluginStyle() {
             let style = `
                 .instant-popup { font-size: 14px !important; }
@@ -500,19 +491,19 @@
                 .link-instanted { animation: instantAnminate 0.6s 1; animation-fill-mode:forwards }
                 .link-instanted * { animation: instantAnminate 0.6s 1; animation-fill-mode:forwards }
             `;
-
+ 
             if (document.head) {
                 util.addStyle('swal-pub-style', 'style', GM_getResourceText('swalStyle'));
                 util.addStyle('instant-style', 'style', style);
             }
-
+ 
             const headObserver = new MutationObserver(() => {
                 util.addStyle('swal-pub-style', 'style', GM_getResourceText('swalStyle'));
                 util.addStyle('instant-style', 'style', style);
             });
             headObserver.observe(document.head, {childList: true, subtree: true});
         },
-
+ 
         init() {
             this.initValue();
             this.addPluginStyle();
