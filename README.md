@@ -45,5 +45,13 @@
 
 特别鸣谢：[instantpage.js](https://instant.page/)
 
-## 💻 防止迷路
+## 💻 备注
 ![](https://cdn.jsdelivr.net/gh/youxiaohou/img/cmqN5niG6ER9oZ2.png)
+chromewebstore.google.com
+microsoftedge.microsoft.com
+addons.mozilla.org
+以上网站可能将分别被重定向到
+chrome.crxsoso.com/webstore
+microsoftedge.crxsoso.com
+addons.crxsoso.com
+如需关闭重定向，请到插件→你的脚本管理器（如篡改猴）→网页加速器→设置 并关闭“加速扩展/应用商店链接”
